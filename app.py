@@ -7,4 +7,4 @@ def index():
     return "hello world"
 
 if __name__ == "__main__":
-    app.run(deburg=True)
+    app.run()
