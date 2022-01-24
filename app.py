@@ -1,9 +1,13 @@
 from flask import Flask, request
 import json, time
 import lk21
-
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 app = Flask(__name__)
-
+if request.headers.getlist("X-Forwarded-For"):
+    ip = request.headers.getlist("X-Forwarded-For")[0]
+else:
+    ip = request.remote_addr
+app.asgi_app = ProxyHeadersMiddleware(app.asgi_app, trusted_hosts=[f"{ip}"])
 @app.route('/', methods=['GET'])
 
 
@@ -34,4 +38,4 @@ def request_page():
     return json_dump
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run()
