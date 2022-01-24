@@ -1,9 +1,10 @@
 from flask import Flask, request
-
+from werkzeug.contrib.fixers import ProxyFix
 import json, time
 import lk21
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 @app.route('/', methods=['GET'])
 
