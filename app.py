@@ -1,12 +1,12 @@
 from flask import Flask, request
-from werkzeug.middleware.proxy_fix import ProxyFix
+
 import json, time
 import lk21
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-app.wsgi_app = ProxyFix(app.wsgi_app)
+
 
 def home_page():
     data_set = {'Page': 'Home', 'Message': 'This is Home Page', 'Timestamp': time.time()}
