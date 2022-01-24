@@ -8,7 +8,11 @@ app = Flask(__name__)
 
 
 def home_page():
-    data_set = {'Page': 'Home', 'Message': 'This is Home Page', 'Timestamp': time.time()}
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip = request.remote_addr
+    data_set = {'Page': 'Home', 'Message': f'This is Home Page {ip}', 'Timestamp': time.time()}
     json_dump = json.dumps(data_set)
     return json_dump
 
