@@ -1,5 +1,5 @@
 from flask import Flask, request
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 import json, time
 import lk21
 
